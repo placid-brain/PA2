@@ -6,6 +6,9 @@ import java.net.Socket;
 import java.security.Key;
 import java.security.cert.X509Certificate;
 import java.security.PublicKey;
+import java.util.Base64;
+
+
 public class ClientWithAP {
 
 	public static void main(String[] args) {
@@ -54,7 +57,11 @@ public class ClientWithAP {
 			fromServer.readUTF();
 			
 			
-			//give me your certificate signed by CA
+			
+			//request certificate signed by CA
+			toServer.writeInt(3);
+			//receive the server's signed certificate
+			//X509Certificate signed_certif = fromServer.readUTF();
 			
 			
 			
