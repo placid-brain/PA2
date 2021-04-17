@@ -3,10 +3,18 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.net.Socket;
-
+import java.security.Key;
+import java.security.cert.X509Certificate;
+import java.security.PublicKey;
 public class ClientWithAP {
 
 	public static void main(String[] args) {
+	
+	//Extract public key of the server 
+	InputStream fis = new FileInputStream("/home/myat00/Desktop/PA2/ProgrammingAssignment2/PA2/certificate_1004637.crt");
+    CertificateFactory cf = CertificateFactory.getInstance("X.509");
+    X509Certificate CAcert =(X509Certificate)cf.generateCertificate(fis);
+    PublicKey publicKey = CAcert.getPublicKey();
 
     	String filename = "100.txt";
     	if (args.length > 0) filename = args[0];
@@ -37,6 +45,23 @@ public class ClientWithAP {
 			clientSocket = new Socket(serverAddress, port);
 			toServer = new DataOutputStream(clientSocket.getOutputStream());
 			fromServer = new DataInputStream(clientSocket.getInputStream());
+			
+			//Hello SecStore, please prove your identity
+			toServer.writeInt(2);
+			//pass the client's message to the server 
+			toServer.writeUTF("Hello SecStore, please prove your identity");
+			//receive the encrypted message from the server which is the proof of the identity of the server
+			fromServer.readUTF();
+			
+			
+			//give me your certificate signed by CA
+			
+			
+			
+			
+			
+			
+			//After the verification process, send the file 
 
 			System.out.println("Sending file...");
 
