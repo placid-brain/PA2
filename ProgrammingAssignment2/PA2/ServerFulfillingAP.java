@@ -10,9 +10,9 @@ import java.security.PrivateKey;
 public class ServerFulfillingAP {
 
 	public static void main(String[] args) {
-		//final X509Certificate x509certificate = CertificateReader.get("");
+		final X509Certificate x509certificate = CertificateReader.get("/home/myat00/Desktop/PA2/ProgrammingAssignment2/PA2/certificate_1004637.crt");
 		//get private key since we need private key to sign a message and send that message to the client.
-		//final PrivateKey privateKey = PrivateKeyReader.get("private_key.der");
+		final PrivateKey privateKey = PrivateKeyReader.get("/home/myat00/Desktop/PA2/ProgrammingAssignment2/PA2/private_key.der");
 		
 		
 		int port = 4321;
@@ -38,6 +38,19 @@ public class ServerFulfillingAP {
 				int packetType = fromClient.readInt();
 				//	TODO: 	Print the packetType 
 				System.out.println(packetType);
+				
+				
+				//If the packet is proving the identity of server
+				if (packetType == 2){
+					//M = Hello this is Secstore using Ks- (private key)
+					// Hello, this is SecStore should be encrypted with private key
+					//encryption using private key
+					byte[] encryptedBytesArray = RSA.encrypt(fromClient.readUTF().getBytes(), privateKey);
+					String encrypted_string_m = Base64.getEncoder().encodeToString(encryptedBytesArray);
+					//reply the encrypted string M to client
+					toClient.writeUTF(encrypted_string_m);
+					
+				}
 				
 				// If the packet is for transferring the filename
 				if (packetType == 0) {
