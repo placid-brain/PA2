@@ -2,6 +2,8 @@ import java.io.*;
 import java.nio.*;
 import java.security.*;
 import java.security.spec.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
  
 public class PrivateKeyReader {
  
