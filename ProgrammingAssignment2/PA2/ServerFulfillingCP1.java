@@ -1,5 +1,5 @@
 package com.company.cse;
-//SERVER CP1
+//SERVER CP1 trial
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
