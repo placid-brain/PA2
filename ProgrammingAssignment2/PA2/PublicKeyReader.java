@@ -16,3 +16,4 @@ public class PublicKeyReader {
 	KeyFactory kf = KeyFactory.getInstance("RSA");
 	return kf.generatePublic(spec);
   }
+}
